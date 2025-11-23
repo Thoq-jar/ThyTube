@@ -1,0 +1,121 @@
+<!doctype html>
+<!--suppress HtmlUnknownTarget -->
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>ThyTube - {{.Title}}</title>
+
+    <style>
+        :root {
+            --accent: oklch(0.601 0.268 310.288);
+            --accent-active: oklch(0.653 0.226 310.17);
+            --foreground: oklch(0.949 0 89.876);
+            --background: oklch(0.14 0 89.876);
+            --element-background: oklch(0.252 0 89.876);
+            font-family: sans-serif;
+        }
+
+        html {
+            height: 100vh;
+            width: 100vw;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--background);
+            color: var(--foreground);
+            padding: 20px;
+        }
+
+        input[type=text] {
+            padding: 10px;
+            border-radius: 5px;
+            outline: none;
+            border: 1px solid var(--accent);
+            background-color: var(--element-background);
+            color: var(--foreground);
+            transition: border-color 100ms ease-in;
+        }
+
+        input[type=text]:focus {
+            border-color: var(--accent-active);
+        }
+
+        input[type=submit] {
+            padding: 10px;
+            border-radius: 5px;
+            outline: none;
+            cursor: pointer;
+            border: 1px solid var(--accent);
+            background-color: var(--element-background);
+            color: var(--foreground);
+            transition: border-color 100ms ease-in;
+        }
+
+        input[type=submit]:hover {
+            border-color: var(--accent-active);
+        }
+
+        .video-list {
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid var(--element-background);
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        li {
+            padding: 10px;
+            margin-bottom: 8px;
+            background-color: var(--element-background);
+            border-radius: 5px;
+        }
+
+        a {
+            color: var(--accent);
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        a:hover {
+            color: var(--accent-active);
+        }
+    </style>
+</head>
+<body>
+<div>
+    <form class="search" name="search" method="POST" action="/watch" target="_parent">
+        <label>
+            <input type="text" name="query" placeholder="Enter video link to download">
+        </label>
+
+        <input type="submit" name="search" value="Get">
+    </form>
+
+    <div class="video-list">
+        <h2>Downloaded Videos (Click to Watch)</h2>
+
+        {{if .Error}}
+        <p style="color: red;">Error: {{.Error}}</p>
+        {{else}}
+        {{if .Files}}
+        <ul>
+            {{range .Files}}
+            <li>
+                <a href="/watch?src={{.}}">{{.}}</a>
+            </li>
+            {{end}}
+        </ul>
+        {{else}}
+        <p>No videos have been downloaded yet. Start by entering a URL above!</p>
+        {{end}}
+        {{end}}
+    </div>
+</div>
+</body>
+</html>

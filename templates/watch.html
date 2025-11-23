@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>ThyTube - {{.Title}}</title>
+
+    <!--suppress CssUnusedSymbol -->
+    <style>
+        :root {
+            --accent: #BB86FC;
+            --background: #121212;
+            --foreground: #E0E0E0;
+            --element-background: #1F1F1F;
+            --shadow-color: rgba(0, 0, 0, 0.4);
+
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        html {
+            height: 100%;
+            width: 100%;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--background);
+            color: var(--foreground);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        .content-container {
+            width: 100%;
+            max-width: 1200px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 0 auto;
+        }
+
+        .video-player-container {
+            width: 100%;
+            max-width: 900px;
+            background-color: var(--element-background);
+            border-radius: 12px;
+            padding: 15px;
+            box-shadow: 0 4px 10px var(--shadow-color);
+            margin-top: 30px;
+            box-sizing: border-box;
+        }
+
+        .video-player {
+            width: 100%;
+            height: auto;
+            display: block;
+            border-radius: 8px;
+        }
+
+        .error-message {
+            background-color: #331f1f;
+            color: #FF5555;
+            padding: 20px;
+            border-radius: 8px;
+            border: 1px solid #772222;
+            margin-top: 20px;
+            font-size: 1.1em;
+            text-align: center;
+            width: 100%;
+            max-width: 600px;
+        }
+
+        a {
+            color: var(--foreground);
+            text-decoration: none;
+        }
+
+        p {
+            font-size: 1.1em;
+            line-height: 1.6;
+        }
+
+        h1 {
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="content-container">
+    <h1><a href="/">ThyTube: {{.Title}}</a></h1>
+
+    {{if .Error}}
+    <div class="error-message">
+        <p>{{.Error}}</p>
+    </div>
+    {{else if .Src}}
+    <div class="video-player-container">
+        {{template "_player.html" dict "Title" "Player" "Src" .Src}}
+    </div>
+    {{else}}
+    <div class="error-message">
+        <p>Oh, noes! An unknown error has occurred!</p>
+    </div>
+    {{end}}
+</div>
+
+</body>
+</html>

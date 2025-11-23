@@ -1,0 +1,8 @@
+{{define "_player.html"}}
+<!--suppress HtmlUnknownTarget -->
+<video controls class="video-player">
+    <source src="{{.Src}}" type="video/mp4">
+    Your browser does not support the video tag.
+</video>
+<h2>Playing: {{.Src}}</h2>
+{{end}}

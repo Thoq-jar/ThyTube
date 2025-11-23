@@ -1,0 +1,4 @@
+#!/bin/bash
+
+set -e
+air --build.cmd "go build -o bin/api ." --build.bin "./bin/api" --build.exclude_dir "bin"
